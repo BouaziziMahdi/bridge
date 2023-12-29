@@ -1,13 +1,19 @@
 package com.bridge.bridge.services;
 
 import com.bridge.bridge.dto.CoursDto;
+import com.bridge.bridge.models.Cours;
 import com.bridge.bridge.repositories.CoursRepository;
 import com.bridge.bridge.validator.ObjectsValidator;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,10 +21,12 @@ import java.util.stream.Collectors;
 public class CoursServices {
     private final CoursRepository coursRepository;
     private final ObjectsValidator objectsValidator;
-    public Integer createCours(CoursDto coursDto) {
+
+    public Integer saveCours(CoursDto coursDto) {
         objectsValidator.validate(coursDto);
-        var cour = CoursDto.fromDtoToEntity (coursDto);
-             return coursRepository.save(cour).getId();
+        Cours cours = CoursDto.fromDtoToEntity(coursDto);
+        Cours savedCours = coursRepository.save(cours);
+        return savedCours.getId();
     }
     public List<CoursDto> findAll() {
         return coursRepository.findAll()
