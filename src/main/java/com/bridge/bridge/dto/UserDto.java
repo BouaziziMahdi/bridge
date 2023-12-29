@@ -3,6 +3,7 @@ package com.bridge.bridge.dto;
 import com.bridge.bridge.models.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,6 +19,7 @@ public class UserDto {
     @Email(message = "email is not valid")
     private String email;
     @NotNull(message = "password is required")
+    @Size(min = 4, max = 16, message = "Password should be between 4 and 16 chars")
     private String password;
     public static UserDto fromEntityToDto(User user){
         if(user == null){
