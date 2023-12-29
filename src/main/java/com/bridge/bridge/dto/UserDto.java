@@ -1,6 +1,8 @@
 package com.bridge.bridge.dto;
 
 import com.bridge.bridge.models.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,9 +10,14 @@ import lombok.Data;
 @Data
 public class UserDto {
     private Integer id;
+    @NotNull(message = "firstName is required")
     private String firstName;
+    @NotNull(message = "lastName is required")
     private String lastName;
+    @NotNull(message = "email is required")
+    @Email(message = "email is not valid")
     private String email;
+    @NotNull(message = "password is required")
     private String password;
     public static UserDto fromEntityToDto(User user){
         if(user == null){

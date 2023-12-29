@@ -1,6 +1,7 @@
 package com.bridge.bridge.dto;
 
 import com.bridge.bridge.models.Cours;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,9 +9,13 @@ import lombok.Data;
 @Builder
 public class CoursDto {
     private Integer id ;
+    @NotNull(message = "name is required")
     private String name ;
+    @NotNull(message = "description is required")
     private String description ;
+    @NotNull(message = "image is required")
     private String image ;
+    @NotNull(message = "prix is required")
     private String prix ;
     private UserDto userDto ;
     public static CoursDto fromEntityToDto(Cours cours){
